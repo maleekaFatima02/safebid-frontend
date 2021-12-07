@@ -1,0 +1,1 @@
+export const API = process.env.SAFE_BID_URI;
