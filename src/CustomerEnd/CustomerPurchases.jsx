@@ -1,20 +1,12 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import NavBar from '../Components/Layout/NavBar';
 import PurTable from './PurTable';
 import SearchBar from './SearchBar';
 
-const theme = createTheme({
-  palette: {
-    primary: { main: '#fff', contrastText: '#000' },
-    secondary: { main: '#455A64', contrastText: '#000' },
-  },
-});
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -100,49 +92,40 @@ const CustomerMyBids = () => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <MuiThemeProvider theme={theme}>
-        <NavBar />
-        <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="md" className={classes.container}>
-            <Grid container justifyContent="center">
-              <Grid
-                xs={12}
-                item
-                style={{
-                  padding: '15px',
-                  marginTop: '5px',
-                }}
-              >
-                <SearchBar />
-              </Grid>
+    <Container maxWidth="md" className={classes.container}>
+      <Grid container justifyContent="center">
+        <Grid
+          xs={12}
+          item
+          style={{
+            padding: '15px',
+            marginTop: '5px',
+          }}
+        >
+          <SearchBar />
+        </Grid>
 
-              <Grid
-                xs={12}
-                item
-                wrap
-                style={{
-                  padding: '15px',
-                  marginTop: '5px',
-                }}
-              >
-                <Paper elevation="3" className={classes.paper} style={{ backgroundColor: '#F5F5F5', padding: '12px' }}>
-                  <Grid container xs={12} justifyContent="center">
-                    {' '}
-                    <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
-                      My Purchases
-                    </Typography>{' '}
-                  </Grid>
-                  <PurTable />
-                </Paper>
-              </Grid>
+        <Grid
+          xs={12}
+          item
+          wrap
+          style={{
+            padding: '15px',
+            marginTop: '5px',
+          }}
+        >
+          <Paper elevation="3" className={classes.paper} style={{ backgroundColor: '#F5F5F5', padding: '12px' }}>
+            <Grid container xs={12} justifyContent="center">
+              {' '}
+              <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
+                My Purchases
+              </Typography>{' '}
             </Grid>
-          </Container>
-        </main>
-      </MuiThemeProvider>
-    </div>
+            <PurTable />
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

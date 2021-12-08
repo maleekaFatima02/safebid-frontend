@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { createTheme, makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -12,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
-import NavBar from '../Components/Layout/NavBar';
 
 const theme = createTheme({
   palette: {
@@ -110,157 +108,148 @@ const CustomerMyBids = () => {
   const [value, setValue] = React.useState(1);
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <MuiThemeProvider theme={theme}>
-        <NavBar />
-        <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3} justifyContent="center">
-              <Paper
-                className={classes.paper}
+    <Container maxWidth="lg" className={classes.container}>
+      <Grid container spacing={3} justifyContent="center">
+        <Paper
+          className={classes.paper}
+          style={{
+            width: '65%',
+            backgroundColor: '#F5F5F5',
+            marginTop: '10%',
+          }}
+        >
+          <Grid container justifyContent="center">
+            {' '}
+            <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
+              Seller Review
+            </Typography>{' '}
+          </Grid>
+
+          <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+            <img alt="picsum" src="https://picsum.photos/200/300" loading="lazy" />
+          </Grid>
+          <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
+            <Typography style={{ marginTop: 10, paddingBottom: 14, marginBottom: 10 }} component="h6" variant="subtitle1">
+              By Seller XYZ
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            md={12}
+            lg={12}
+            style={{
+              display: 'flex',
+              flex: 1,
+              alignItems: 'left',
+              flexDirection: 'row',
+            }}
+          >
+            <Typography
+              style={{
+                padding: theme.spacing(4),
+                paddingBottom: 14,
+                marginBottom: 10,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              component="h6"
+              variant="h6"
+            >
+              Seller Rating
+            </Typography>{' '}
+            <Rating
+              name="simple-controlled"
+              style={{
+                paddingBottom: 13,
+                padding: theme.spacing(4),
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+              }}
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={12}
+            lg={12}
+            style={{
+              display: 'flex',
+              flex: 1,
+              alignItems: 'left',
+              flexDirection: 'row',
+            }}
+          >
+            <Typography
+              style={{
+                padding: theme.spacing(4),
+                paddingBottom: 14,
+                marginBottom: 10,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+              component="h6"
+              variant="h6"
+            >
+              Product Rating
+            </Typography>
+            <Rating
+              name="simple-controlled"
+              style={{
+                paddingBottom: 13,
+                padding: theme.spacing(4),
+                display: 'flex',
+                flex: 1,
+                alignItems: 'center',
+              }}
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
+          </Grid>
+
+          <Grid
+            item
+            xs={12}
+            md={12}
+            lg={12}
+            style={{
+              padding: '15px',
+            }}
+          >
+            <TextField id="filled-basic" label="Descriptive Review..." variant="filled" multiline fullWidth rows={5} />
+            <label htmlFor="icon-button-file" style={{ display: 'flex', justifyContent: 'end' }}>
+              <Input accept="image/*" id="icon-button-file" type="file" />
+              <Tooltip title="Upload Product Image" placement="bottom-end">
+                <IconButton aria-label="upload picture" disableRipple style={{ display: 'flex', justifyContent: 'end' }}>
+                  <PhotoCamera />
+                </IconButton>
+              </Tooltip>
+            </label>
+            <Grid container justifyContent="center" xs={12} md={12} lg={12}>
+              <Button
+                size="medium"
+                variant="contained"
                 style={{
-                  width: '65%',
-                  backgroundColor: '#F5F5F5',
-                  marginTop: '10%',
+                  backgroundColor: '#1e3d59',
+                  color: 'white',
+                  width: '15%',
                 }}
               >
-                <Grid container justifyContent="center">
-                  {' '}
-                  <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
-                    Seller Review
-                  </Typography>{' '}
-                </Grid>
-
-                <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                  <img alt="picsum" src="https://picsum.photos/200/300" loading="lazy" />
-                </Grid>
-                <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Typography style={{ marginTop: 10, paddingBottom: 14, marginBottom: 10 }} component="h6" variant="subtitle1">
-                    By Seller XYZ
-                  </Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  lg={12}
-                  style={{
-                    display: 'flex',
-                    flex: 1,
-                    alignItems: 'left',
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Typography
-                    style={{
-                      padding: theme.spacing(4),
-                      paddingBottom: 14,
-                      marginBottom: 10,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                    component="h6"
-                    variant="h6"
-                  >
-                    Seller Rating
-                  </Typography>{' '}
-                  <Rating
-                    name="simple-controlled"
-                    style={{
-                      paddingBottom: 13,
-                      padding: theme.spacing(4),
-                      display: 'flex',
-                      flex: 1,
-                      alignItems: 'center',
-                    }}
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                  />
-                </Grid>
-
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  lg={12}
-                  style={{
-                    display: 'flex',
-                    flex: 1,
-                    alignItems: 'left',
-                    flexDirection: 'row',
-                  }}
-                >
-                  <Typography
-                    style={{
-                      padding: theme.spacing(4),
-                      paddingBottom: 14,
-                      marginBottom: 10,
-                      display: 'flex',
-                      alignItems: 'center',
-                    }}
-                    component="h6"
-                    variant="h6"
-                  >
-                    Product Rating
-                  </Typography>
-                  <Rating
-                    name="simple-controlled"
-                    style={{
-                      paddingBottom: 13,
-                      padding: theme.spacing(4),
-                      display: 'flex',
-                      flex: 1,
-                      alignItems: 'center',
-                    }}
-                    value={value}
-                    onChange={(event, newValue) => {
-                      setValue(newValue);
-                    }}
-                  />
-                </Grid>
-
-                <Grid
-                  item
-                  xs={12}
-                  md={12}
-                  lg={12}
-                  style={{
-                    padding: '15px',
-                  }}
-                >
-                  <TextField id="filled-basic" label="Descriptive Review..." variant="filled" multiline fullWidth rows={5} />
-                  <label htmlFor="icon-button-file" style={{ display: 'flex', justifyContent: 'end' }}>
-                    <Input accept="image/*" id="icon-button-file" type="file" />
-                    <Tooltip title="Upload Product Image" placement="bottom-end">
-                      <IconButton aria-label="upload picture" disableRipple style={{ display: 'flex', justifyContent: 'end' }}>
-                        <PhotoCamera />
-                      </IconButton>
-                    </Tooltip>
-                  </label>
-                  <Grid container justifyContent="center" xs={12} md={12} lg={12}>
-                    <Button
-                      size="medium"
-                      variant="contained"
-                      style={{
-                        backgroundColor: '#1e3d59',
-                        color: 'white',
-                        width: '15%',
-                      }}
-                    >
-                      Post
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Paper>
+                Post
+              </Button>
             </Grid>
-          </Container>
-        </main>
-      </MuiThemeProvider>
-    </div>
+          </Grid>
+        </Paper>
+      </Grid>
+    </Container>
   );
 };
 

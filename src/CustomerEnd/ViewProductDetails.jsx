@@ -9,8 +9,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Countdown from 'react-countdown';
-import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { createTheme, makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -26,8 +25,6 @@ import DialogActions from '@mui/material/DialogActions';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import { useParams } from 'react-router-dom';
-import NavBar from '../Components/Layout/NavBar';
-import StickyFooter from './StickyFooter';
 import { headers } from '../utils';
 
 const theme = createTheme({
@@ -300,247 +297,237 @@ const ImgMediaCard = () => {
   }, []);
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <MuiThemeProvider theme={theme}>
-        <NavBar />
-        {error}
-        <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
-          <div className={classes.appBarSpacer} />
-          <Container maxWidth="lg" className={classes.container}>
-            <Grid container justifyContent="center" spacing={3}>
-              {/* <Paper className={classes.paper} elevation={0}> */}
-              <Grid
-                lg={7}
-                md={8}
-                container
-                style={{
-                  backgroundColor: '#F5F5F5',
-                  border: '2px solid rgba(34, 49, 63, 1)',
-                  padding: '50px',
-                }}
-              >
-                <Grid xs={12} md={6} lg={8} item>
-                  <Card style={{ borderWidth: '1px', borderColor: '#1e3d59' }}>
-                    <CardMedia component="img" alt="displayed image" height="320" pt="56.25%" src={`${process.env.REACT_APP_SAFE_BID_URI}/product/picture/${product._id}`} />
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div" style={{ fontWeight: 'bold', color: '#000' }}>
-                        {product.name}
-                      </Typography>
-                      {/* <Typography variant="body2" color="#000">
+    <Container maxWidth="lg" className={classes.container}>
+      {error}
+      <Grid container justifyContent="center" spacing={3}>
+        {/* <Paper className={classes.paper} elevation={0}> */}
+        <Grid
+          lg={7}
+          md={8}
+          container
+          style={{
+            backgroundColor: '#F5F5F5',
+            border: '2px solid rgba(34, 49, 63, 1)',
+            padding: '50px',
+          }}
+        >
+          <Grid xs={12} md={6} lg={8} item>
+            <Card style={{ borderWidth: '1px', borderColor: '#1e3d59' }}>
+              <CardMedia component="img" alt="displayed image" height="320" pt="56.25%" src={`${process.env.REACT_APP_SAFE_BID_URI}/product/picture/${product._id}`} />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div" style={{ fontWeight: 'bold', color: '#000' }}>
+                  {product.name}
+                </Typography>
+                {/* <Typography variant="body2" color="#000">
                         Ancient Chinese Ceramic Vase
                       </Typography> */}
-                    </CardContent>
-                    <CardActions>
-                      <Button size="small" style={{ color: '#000' }}>
-                        About Seller
-                      </Button>
-                    </CardActions>
-                  </Card>
-                </Grid>
+              </CardContent>
+              <CardActions>
+                <Button size="small" style={{ color: '#000' }}>
+                  About Seller
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
-                  <CardContent
-                    style={{
-                      display: 'flex',
-                      flex: '1',
-                      justifyContent: 'center',
-                      // border: "1px solid red",
-                      flexDirection: 'column',
+          <Grid item xs={12} md={6} lg={4}>
+            <CardContent
+              style={{
+                display: 'flex',
+                flex: '1',
+                justifyContent: 'center',
+                // border: "1px solid red",
+                flexDirection: 'column',
 
-                      margin: '20px',
-                      width: '100%',
-                    }}
-                  >
-                    <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
-                      Time Left
-                    </Typography>
-                    <p>
-                      <Typography
-                        variant="h5"
-                        color="text.secondary"
-                        style={{
-                          paddingBottom: '10px',
-                          fontWeight: 'bold',
-                          color: 'red',
-                        }}
-                      >
-                        <Countdown date={Date.now() + 1900000} />
-                      </Typography>
-                    </p>
-
-                    <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
-                      Opening Bid
-                    </Typography>
-                    <p>
-                      <Typography
-                        variant="h5"
-                        color="#000"
-                        style={{
-                          paddingBottom: '10px',
-                          fontWeight: 'bold',
-                          color: 'red',
-                        }}
-                      >
-                        {product.openingBid}&nbsp;($)
-                      </Typography>
-                    </p>
-
-                    <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
-                      Current Max Bid
-                    </Typography>
-                    <p>
-                      <Typography
-                        variant="h5"
-                        color="#000"
-                        style={{
-                          paddingBottom: '10px',
-                          fontWeight: 'bold',
-                          color: 'red',
-                        }}
-                      >
-                        {currentBid}&nbsp;($)
-                      </Typography>
-                    </p>
-
-                    <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
-                      Placed Bids
-                    </Typography>
-                    <p>
-                      <Typography variant="h6" style={{ paddingBottom: '10px', color: 'grey' }}>
-                        {totalBids}
-                      </Typography>
-                    </p>
-                  </CardContent>
-                </Grid>
-
-                <Divider
-                  variant="middle"
+                margin: '20px',
+                width: '100%',
+              }}
+            >
+              <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
+                Time Left
+              </Typography>
+              <p>
+                <Typography
+                  variant="h5"
+                  color="text.secondary"
                   style={{
-                    backgroundColor: 'white',
-                    width: '100%',
-                    marginTop: '10px',
-                  }}
-                />
-
-                {/* a container */}
-                <Grid
-                  container
-                  style={{
-                    marginTop: '20px',
-                    marginBottom: '22px',
-                    height: '12vh',
-                    // backgroundColor: "#000",
-                    display: 'flex',
-                    flexDirection: 'row',
+                    paddingBottom: '10px',
+                    fontWeight: 'bold',
+                    color: 'red',
                   }}
                 >
-                  <Grid
-                    item
-                    xs={12}
-                    lg={8}
-                    sm={8}
-                    md={8}
-                    style={{
-                      marginLeft: '12px',
-                      padding: '2px',
-                      display: 'flex',
-                      flex: '1',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <InputBase
-                      fullWidth
-                      placeholder="Enter Your Bid&nbsp;($)"
-                      style={{
-                        border: '1px solid rgba(34, 49, 63, 1)',
-                        color: 'rgba(34, 49, 63, 1)',
-                        padding: theme.spacing(2),
-                      }}
-                      size="small"
-                    />
-                  </Grid>
-                  {/* <Button
+                  <Countdown date={Date.now() + 1900000} />
+                </Typography>
+              </p>
+
+              <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
+                Opening Bid
+              </Typography>
+              <p>
+                <Typography
+                  variant="h5"
+                  color="#000"
+                  style={{
+                    paddingBottom: '10px',
+                    fontWeight: 'bold',
+                    color: 'red',
+                  }}
+                >
+                  {product.openingBid}&nbsp;($)
+                </Typography>
+              </p>
+
+              <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
+                Current Max Bid
+              </Typography>
+              <p>
+                <Typography
+                  variant="h5"
+                  color="#000"
+                  style={{
+                    paddingBottom: '10px',
+                    fontWeight: 'bold',
+                    color: 'red',
+                  }}
+                >
+                  {currentBid}&nbsp;($)
+                </Typography>
+              </p>
+
+              <Typography gutterBottom variant="h6" component="div" style={{ color: '#000' }}>
+                Placed Bids
+              </Typography>
+              <p>
+                <Typography variant="h6" style={{ paddingBottom: '10px', color: 'grey' }}>
+                  {totalBids}
+                </Typography>
+              </p>
+            </CardContent>
+          </Grid>
+
+          <Divider
+            variant="middle"
+            style={{
+              backgroundColor: 'white',
+              width: '100%',
+              marginTop: '10px',
+            }}
+          />
+
+          {/* a container */}
+          <Grid
+            container
+            style={{
+              marginTop: '20px',
+              marginBottom: '22px',
+              height: '12vh',
+              // backgroundColor: "#000",
+              display: 'flex',
+              flexDirection: 'row',
+            }}
+          >
+            <Grid
+              item
+              xs={12}
+              lg={8}
+              sm={8}
+              md={8}
+              style={{
+                marginLeft: '12px',
+                padding: '2px',
+                display: 'flex',
+                flex: '1',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <InputBase
+                fullWidth
+                placeholder="Enter Your Bid&nbsp;($)"
+                style={{
+                  border: '1px solid rgba(34, 49, 63, 1)',
+                  color: 'rgba(34, 49, 63, 1)',
+                  padding: theme.spacing(2),
+                }}
+                size="small"
+              />
+            </Grid>
+            {/* <Button
                           variant="contained"
                           style={{ background: "#fff", color: "maroon" , margin:"4px"}}
                         >
                           Place Bid
                         </Button> */}
-                  <Grid item xs={12} sm={4} lg={4} md={4}>
-                    <Button
-                      size="large"
-                      variant="contained"
-                      style={{
-                        background: '#1e3d59',
-                        color: '#fff',
-                        margin: '15px',
-                      }}
-                      onClick={handleClickOpen}
-                    >
-                      Place Bid
-                    </Button>
-                  </Grid>
-
-                  <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                    <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-                      Confirm Bidding
-                    </BootstrapDialogTitle>
-                    <DialogContent dividers>
-                      <Typography gutterBottom>Are you sure you want to place bid on this product?</Typography>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleClose}>Confirm Bid</Button>
-                      <Button onClick={handleClose}>Cancel</Button>
-                    </DialogActions>
-                  </BootstrapDialog>
-                </Grid>
-              </Grid>
-              {/* terms & cond */}
-              <Grid item lg={4} md={4}>
-                <Paper className={classes.paperCard}>
-                  <div>
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>Product Description</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography>{product.description}</Typography>
-                      </AccordionDetails>
-                    </Accordion>
-
-                    <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-                      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                        <Typography>Terms and Conditions</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                    <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-                      <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-                        <Typography>Shipping Policy</Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <Typography>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur
-                          adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
-                        </Typography>
-                      </AccordionDetails>
-                    </Accordion>
-                  </div>
-                </Paper>
-                {/* </Paper> */}
-              </Grid>
+            <Grid item xs={12} sm={4} lg={4} md={4}>
+              <Button
+                size="large"
+                variant="contained"
+                style={{
+                  background: '#1e3d59',
+                  color: '#fff',
+                  margin: '15px',
+                }}
+                onClick={handleClickOpen}
+              >
+                Place Bid
+              </Button>
             </Grid>
-          </Container>
-          <StickyFooter />
-        </main>
-      </MuiThemeProvider>
-    </div>
+
+            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                Confirm Bidding
+              </BootstrapDialogTitle>
+              <DialogContent dividers>
+                <Typography gutterBottom>Are you sure you want to place bid on this product?</Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Confirm Bid</Button>
+                <Button onClick={handleClose}>Cancel</Button>
+              </DialogActions>
+            </BootstrapDialog>
+          </Grid>
+        </Grid>
+        {/* terms & cond */}
+        <Grid item lg={4} md={4}>
+          <Paper className={classes.paperCard}>
+            <div>
+              <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                  <Typography>Product Description</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{product.description}</Typography>
+                </AccordionDetails>
+              </Accordion>
+
+              <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+                <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                  <Typography>Terms and Conditions</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+                <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+                  <Typography>Shipping Policy</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor sit amet, consectetur adipiscing
+                    elit. Suspendisse malesuada lacus ex, sit amet blandit leo lobortis eget.
+                  </Typography>
+                </AccordionDetails>
+              </Accordion>
+            </div>
+          </Paper>
+          {/* </Paper> */}
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

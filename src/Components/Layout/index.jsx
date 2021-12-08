@@ -1,11 +1,21 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Table from './Table';
-import SearchBar from './SearchBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import { makeStyles, createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import StickyFooter from './StickyFooter';
+import NavBar from './NavBar';
+import ViewProductDetails from '../../CustomerEnd/ViewProductDetails';
+import CustomerMyBids from '../../CustomerEnd/CustomerMyBids';
+import CustomerHomepage from '../../CustomerEnd/CustomerHomepage';
+import CustomerReview from '../../CustomerEnd/CustomerReview';
+import CustomerPurchases from '../../CustomerEnd/CustomerPurchases';
+
+const theme = createTheme({
+  palette: {
+    primary: { main: '#B71C1C', contrastText: '#000' },
+    secondary: { main: '#B71C1C', contrastText: '#000' },
+  },
+});
 
 const drawerWidth = 240;
 
@@ -83,50 +93,31 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
   },
-  fixedHeight: {
-    height: 240,
-  },
 }));
 
-const CustomerMyBids = () => {
+const Layout = () => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <Grid container justifyContent="center">
-        <Grid
-          xs={12}
-          item
-          style={{
-            padding: '15px',
-            marginTop: '5px',
-          }}
-        >
-          <SearchBar />
-        </Grid>
-
-        <Grid
-          xs={12}
-          item
-          wrap
-          style={{
-            padding: '15px',
-            marginTop: '5px',
-          }}
-        >
-          <Paper elevation="3" className={classes.paper} style={{ backgroundColor: '#F5F5F5', padding: '12px' }}>
-            <Grid container xs={12} justifyContent="center">
-              {' '}
-              <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
-                My Bids
-              </Typography>{' '}
-            </Grid>
-            <Table />
-          </Paper>
-        </Grid>
-      </Grid>
-    </Container>
+    <div className={classes.root}>
+      <CssBaseline />
+      <MuiThemeProvider theme={theme}>
+        <NavBar />
+        <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Switch>
+            <Route exact path="/homepage" component={CustomerHomepage} />
+            <Route exact path="/ProductDetails/:productId" component={ViewProductDetails} />
+            <Route exact path="/MyBids" component={CustomerMyBids} />
+            <Route exact path="/MyPurchases" component={CustomerPurchases} />
+            <Route exact path="/CustomerReview" component={CustomerReview} />
+            <Redirect from="*" to="/homepage" />
+          </Switch>
+          <StickyFooter />
+        </main>
+      </MuiThemeProvider>
+    </div>
   );
 };
 
-export default CustomerMyBids;
+export default Layout;
