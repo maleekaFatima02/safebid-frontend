@@ -13,7 +13,7 @@ export const RestrictedRouter = ({ component: Component, isLoggedIn, ...rest }) 
       ) : (
         <Redirect
           to={{
-            pathname: '/login',
+            pathname: '/signup',
             state: { from: props.location },
           }}
         />
