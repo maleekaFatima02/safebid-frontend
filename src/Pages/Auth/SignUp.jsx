@@ -32,15 +32,15 @@ const SignUp = ({ history }) => {
   const { email, password, confirmPassword, success, error, firstName, lastName } = values;
 
   const handleChange = (event) => {
-    const { name, value } = event.target; 
+    const { name, value } = event.target;
     setValues({ ...values, error: false, [name]: value });
   };
 
-  useEffect(()=>{
-    if(localStorage.getItem('token')){
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
       history.push('/homepage');
     }
-  }, [])
+  }, []);
 
   const signup = (user) =>
     fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
@@ -114,17 +114,17 @@ const SignUp = ({ history }) => {
 
               <Box component="form" noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <TextField required fullWidth name="firstName" label="First Name" type="text" id="firstName" autoComplete="new-password" onChange={e => handleChange(e)} value={firstName} />
+                  <Grid item xs={12}>
+                    <TextField required fullWidth name="firstName" label="First Name" type="text" id="firstName" autoComplete="new-password" onChange={(e) => handleChange(e)} value={firstName} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField required fullWidth name="lastName" label="Last Name" type="text" id="lastName" autoComplete="new-password" onChange={e => handleChange(e)} value={lastName} />
+                    <TextField required fullWidth name="lastName" label="Last Name" type="text" id="lastName" autoComplete="new-password" onChange={(e) => handleChange(e)} value={lastName} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" onChange={e => handleChange(e)} value={email} />
+                    <TextField required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" onChange={(e) => handleChange(e)} value={email} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField required fullWidth name="password" label="Password" type="password" id="password" autoComplete="new-password" onChange={e => handleChange(e)} value={password} />
+                    <TextField required fullWidth name="password" label="Password" type="password" id="password" autoComplete="new-password" onChange={(e) => handleChange(e)} value={password} />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -135,7 +135,7 @@ const SignUp = ({ history }) => {
                       type="password"
                       id="confirmPassword"
                       autoComplete="new-password"
-                      onChange={e => handleChange(e)}
+                      onChange={(e) => handleChange(e)}
                       value={confirmPassword}
                     />
                   </Grid>
