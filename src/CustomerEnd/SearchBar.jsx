@@ -1,22 +1,22 @@
-import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import Badge from "@mui/material/Badge";
-import MenuItem from "@mui/material/MenuItem";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import MoreIcon from "@mui/icons-material/MoreVert";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import Badge from '@mui/material/Badge';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Divider from '@mui/material/Divider';
+import Grid from '@mui/material/Grid';
 
 // const Search = styled("div")(({ theme }) => ({
 //   display: "flex",
@@ -57,32 +57,27 @@ export default function PrimarySearchAppBar() {
     <>
       <Grid
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "15px",
-          marginBottom: "10px",
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '15px',
+          marginBottom: '10px',
         }}
       >
         <Paper
           elevation="3"
           component="form"
           sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
+            p: '2px 4px',
+            display: 'flex',
+            alignItems: 'center',
             width: 470,
           }}
-          style={{ backgroundColor: "#fff" }}
+          style={{ backgroundColor: '#fff' }}
         >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder="Search Here"
-            color="#1e3d59"
-            inputProps={{ "aria-label": "search google maps" }}
-          />
+          <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Here" color="#1e3d59" inputProps={{ 'aria-label': 'search google maps' }} />
           <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <IconButton type="submit" sx={{ p: "10px" }} aria-label="search">
+          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
             <SearchIcon />
           </IconButton>
         </Paper>
