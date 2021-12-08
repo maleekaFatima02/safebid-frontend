@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -24,14 +24,23 @@ const SignUp = ({ history }) => {
     password: '',
     confirmPassword: '',
     error: '',
+    firstName: '',
+    lastName: '',
     success: false,
   });
 
-  const { email, password, confirmPassword, success, error } = values;
+  const { email, password, confirmPassword, success, error, firstName, lastName } = values;
 
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false, [name]: event.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target; 
+    setValues({ ...values, error: false, [name]: value });
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      history.push('/homepage');
+    }
+  }, [])
 
   const signup = (user) =>
     fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
@@ -47,12 +56,14 @@ const SignUp = ({ history }) => {
       setValues({ ...values, error: 'Password and confirm Password do not match', success: false });
     } else {
       setValues({ ...values, error: false });
-      signup({ email, password }).then((data) => {
+      signup({ email, password, firstName, lastName }).then((data) => {
         if (data.error) {
           setValues({ ...values, error: data.error, success: false });
         } else {
           localStorage.setItem('token', data.token);
-          history.push('/homepage');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         }
       });
     }
@@ -103,11 +114,17 @@ const SignUp = ({ history }) => {
 
               <Box component="form" noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" onChange={handleChange('email')} value={email} />
+                <Grid item xs={12}>
+                    <TextField required fullWidth name="firstName" label="First Name" type="text" id="firstName" autoComplete="new-password" onChange={e => handleChange(e)} value={firstName} />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField required fullWidth name="password" label="Password" type="password" id="password" autoComplete="new-password" onChange={handleChange('password')} value={password} />
+                    <TextField required fullWidth name="lastName" label="Last Name" type="text" id="lastName" autoComplete="new-password" onChange={e => handleChange(e)} value={lastName} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField required fullWidth id="email" label="Email Address" name="email" type="email" autoComplete="email" onChange={e => handleChange(e)} value={email} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField required fullWidth name="password" label="Password" type="password" id="password" autoComplete="new-password" onChange={e => handleChange(e)} value={password} />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
@@ -118,7 +135,7 @@ const SignUp = ({ history }) => {
                       type="password"
                       id="confirmPassword"
                       autoComplete="new-password"
-                      onChange={handleChange('confirmPassword')}
+                      onChange={e => handleChange(e)}
                       value={confirmPassword}
                     />
                   </Grid>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -29,6 +29,12 @@ const Login = ({ history }) => {
 
   const { email, password, loading, error } = values;
 
+  useEffect(()=>{
+    if(localStorage.getItem('token')){
+      history.push('/homepage');
+    }
+  }, [])
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
@@ -49,7 +55,9 @@ const Login = ({ history }) => {
       } else {
         localStorage.setItem('token', data.token);
         setValues({ ...values });
-        history.push('/homepage');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       }
     });
   };
