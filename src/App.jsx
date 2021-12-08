@@ -12,7 +12,7 @@ const App = () => (
       <Route path="/login" component={Login} />
       <RestrictedRouter path="/" isLoggedIn={localStorage.getItem('token')} component={Layout} />
       {/* TODO: Page not found */}
-      <Redirect from="*" to="/login" />
+      <Redirect from="*" to="/signup" />
     </Switch>
   </Router>
 );
