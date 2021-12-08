@@ -25,7 +25,7 @@ import DialogActions from '@mui/material/DialogActions';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import { useParams } from 'react-router-dom';
-import { headers } from '../utils';
+import { headers } from '../../utils';
 
 const theme = createTheme({
   palette: {

@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import Table from './Table';
-import SearchBar from './SearchBar';
+import PurTable from '../../CustomerEnd/PurTable';
+import SearchBar from '../../Components/SearchBar';
 
 const drawerWidth = 240;
 
@@ -118,10 +118,10 @@ const CustomerMyBids = () => {
             <Grid container xs={12} justifyContent="center">
               {' '}
               <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
-                My Bids
+                My Purchases
               </Typography>{' '}
             </Grid>
-            <Table />
+            <PurTable />
           </Paper>
         </Grid>
       </Grid>

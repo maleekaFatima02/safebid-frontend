@@ -11,8 +11,8 @@ import Container from '@mui/material/Container';
 
 import Countdown from 'react-countdown';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
-import { headers } from '../utils';
+import SearchBar from '../../Components/SearchBar';
+import { headers } from '../../utils';
 
 const drawerWidth = 240;
 

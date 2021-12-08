@@ -4,11 +4,11 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { makeStyles, createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import StickyFooter from './StickyFooter';
 import NavBar from './NavBar';
-import ViewProductDetails from '../../CustomerEnd/ViewProductDetails';
-import CustomerMyBids from '../../CustomerEnd/CustomerMyBids';
-import CustomerHomepage from '../../CustomerEnd/CustomerHomepage';
-import CustomerReview from '../../CustomerEnd/CustomerReview';
-import CustomerPurchases from '../../CustomerEnd/CustomerPurchases';
+import ViewProductDetails from '../../Pages/Product/ViewProductDetails';
+import CustomerHomepage from '../../Pages/Product';
+import CustomerMyBids from '../../Pages/Bid/CustomerMyBids';
+import CustomerReview from '../../Pages/Review/CustomerReview';
+import CustomerPurchases from '../../Pages/Purchase/CustomerPurchases';
 
 const theme = createTheme({
   palette: {
