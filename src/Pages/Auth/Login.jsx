@@ -12,6 +12,7 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
+import { useHistory } from 'react-router';
 
 const colorTheme = createTheme({
   palette: {
@@ -19,7 +20,8 @@ const colorTheme = createTheme({
   },
 });
 
-const Login = ({ history }) => {
+const Login = () => {
+  const history = useHistory();
   const [values, setValues] = React.useState({
     email: '',
     password: '',
