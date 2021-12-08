@@ -41,35 +41,35 @@ import Grid from '@mui/material/Grid';
 //   },
 // }));
 const PrimarySearchAppBar = () => (
-    <>
-      <Grid
-        style={{
+  <>
+    <Grid
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '15px',
+        marginBottom: '10px',
+      }}
+    >
+      <Paper
+        elevation="3"
+        component="form"
+        sx={{
+          p: '2px 4px',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          padding: '15px',
-          marginBottom: '10px',
+          width: 470,
         }}
+        style={{ backgroundColor: '#fff' }}
       >
-        <Paper
-          elevation="3"
-          component="form"
-          sx={{
-            p: '2px 4px',
-            display: 'flex',
-            alignItems: 'center',
-            width: 470,
-          }}
-          style={{ backgroundColor: '#fff' }}
-        >
-          <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Here" color="#1e3d59" inputProps={{ 'aria-label': 'search google maps' }} />
-          <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-          <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-      </Grid>
-      {/* <Search>
+        <InputBase sx={{ ml: 1, flex: 1 }} placeholder="Search Here" color="#1e3d59" inputProps={{ 'aria-label': 'search google maps' }} />
+        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+        <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
+    </Grid>
+    {/* <Search>
             <Box style={{margin:"auto"}}>
             <SearchIconWrapper>
               <SearchIcon />
@@ -80,7 +80,7 @@ const PrimarySearchAppBar = () => (
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search> */}
-    </>
-  );
+  </>
+);
 
 export default PrimarySearchAppBar;

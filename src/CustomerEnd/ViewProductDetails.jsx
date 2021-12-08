@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Countdown from 'react-countdown';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider , makeStyles } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
@@ -204,7 +204,8 @@ BootstrapDialogTitle.propTypes = {
   onClose: PropTypes.func.isRequired,
 };
 
-const displayProduct = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/viewProduct/${productId}`, {
+const displayProduct = (productId) =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/viewProduct/${productId}`, {
     headers,
     method: 'GET',
   })
@@ -214,7 +215,8 @@ const displayProduct = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_UR
       console.log(err);
     });
 
-const displayTotalBids = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/bidCount/${productId}`, {
+const displayTotalBids = (productId) =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/bidCount/${productId}`, {
     headers,
     method: 'GET',
   })
@@ -224,7 +226,8 @@ const displayTotalBids = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_
       console.log(err);
     });
 
-const displayCurrentBid = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/currentBid/${productId}`, {
+const displayCurrentBid = (productId) =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/currentBid/${productId}`, {
     headers,
     method: 'GET',
   })

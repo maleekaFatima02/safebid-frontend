@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles , createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -133,35 +133,35 @@ const NavBar = () => {
   const isMd = useMediaQuery(themes.breakpoints.down('lg'));
 
   const TempDrawer = () => (
-      <Drawer
-        variant="temporary"
-        open={open}
-        onClose={() => handleDrawerClose(false)}
-        anchor="left"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+    <Drawer
+      variant="temporary"
+      open={open}
+      onClose={() => handleDrawerClose(false)}
+      anchor="left"
+      classes={{
+        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+      }}
+      onMouseEnter={handleDrawerOpen}
+      onMouseLeave={handleDrawerClose}
+    >
+      <div className={classes.toolbarIcon}>
+        <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary" /> : <ChevronRightIcon />}</IconButton>
+      </div>
+      <Divider />
+      <div
+        style={{
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'column',
+          backgroundColor: '#2B7A78',
+          width: '240px',
         }}
-        onMouseEnter={handleDrawerOpen}
-        onMouseLeave={handleDrawerClose}
       >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary" /> : <ChevronRightIcon />}</IconButton>
-        </div>
+        {' '}
+        <List>{mainListItems}</List>
         <Divider />
-        <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'column',
-            backgroundColor: '#2B7A78',
-            width: '240px',
-          }}
-        >
-          {' '}
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
-          {/* <List>
+        <List>{secondaryListItems}</List>
+        {/* <List>
             {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -171,8 +171,8 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-          <Divider />
-          {/* <List>
+        <Divider />
+        {/* <List>
             {["My Bids", "My Purchases"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -182,38 +182,38 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-        </div>
-      </Drawer>
-    );
+      </div>
+    </Drawer>
+  );
   const MiniDrawer = () => (
-      <Drawer
-        variant="permanent"
-        anchor="left"
-        onClose={() => handleDrawerClose(false)}
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      onClose={() => handleDrawerClose(false)}
+      classes={{
+        paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+      }}
+      open
+      onMouseEnter={handleDrawerOpen}
+      onMouseLeave={handleDrawerClose}
+    >
+      <div className={classes.toolbarIcon}>
+        <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary" /> : <ChevronRightIcon />}</IconButton>
+      </div>
+      <Divider />
+      <div
+        style={{
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'column',
+          backgroundColor: '#f5f0e1',
         }}
-        open
-        onMouseEnter={handleDrawerOpen}
-        onMouseLeave={handleDrawerClose}
       >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>{theme.direction === 'ltr' ? <ChevronLeftIcon color="secondary" /> : <ChevronRightIcon />}</IconButton>
-        </div>
+        <List>{mainListItems}</List>
         <Divider />
-        <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'column',
-            backgroundColor: '#f5f0e1',
-          }}
-        >
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
+        <List>{secondaryListItems}</List>
 
-          {/* <List>
+        {/* <List>
             {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -223,7 +223,7 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-          {/* <Divider />
+        {/* <Divider />
           <List>
             {["My Bids", "My Purchases"].map((text, index) => (
               <ListItem button key={text}>
@@ -234,28 +234,28 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-        </div>
-      </Drawer>
-    );
+      </div>
+    </Drawer>
+  );
   const PermDrawer = () => (
-      <Drawer variant="permanent">
-        <div className={classes.toolbarIcon} />
+    <Drawer variant="permanent">
+      <div className={classes.toolbarIcon} />
+      <Divider />
+      <div
+        style={{
+          display: 'flex',
+          flex: '1',
+          flexDirection: 'column',
+          backgroundColor: '#2F4454',
+          color: '#000',
+          width: '240px',
+        }}
+      >
+        {' '}
+        <List>{mainListItems}</List>
         <Divider />
-        <div
-          style={{
-            display: 'flex',
-            flex: '1',
-            flexDirection: 'column',
-            backgroundColor: '#2F4454',
-            color: '#000',
-            width: '240px',
-          }}
-        >
-          {' '}
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems}</List>
-          {/* <List>
+        <List>{secondaryListItems}</List>
+        {/* <List>
             {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
@@ -265,7 +265,7 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-          {/* <Divider />
+        {/* <Divider />
           <List>
             {["My Bids", "My Purchases"].map((text, index) => (
               <ListItem button key={text}>
@@ -276,9 +276,9 @@ const NavBar = () => {
               </ListItem>
             ))}
           </List> */}
-        </div>
-      </Drawer>
-    );
+      </div>
+    </Drawer>
+  );
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -297,8 +297,8 @@ const NavBar = () => {
               </>
             ) : (
               <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} flexGrow="1" align="left">
-                  SafeBid
-                </Typography>
+                SafeBid
+              </Typography>
             )}
             {isMatch ? (
               <>
@@ -338,23 +338,23 @@ const NavBar = () => {
               </>
             ) : (
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                  <IconButton style={{ margin: '0px' }} size="large" aria-label="show 3 new notifications" color="inherit">
-                    <Badge badgeContent={17} color="error">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
-                  <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
-                    <AccountCircle />
-                  </IconButton>
-                </Box>
+                <IconButton style={{ margin: '0px' }} size="large" aria-label="show 3 new notifications" color="inherit">
+                  <Badge badgeContent={17} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+                <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
+                  <AccountCircle />
+                </IconButton>
+              </Box>
             )}
           </Toolbar>
         </AppBar>
 
         {/* Drawer Started */}
-        {(!isMd && !isMatch) && <PermDrawer />}
-        {(isMd && !isMatch ) && <MiniDrawer />}
-        {isMatch && <TempDrawer /> }
+        {!isMd && !isMatch && <PermDrawer />}
+        {isMd && !isMatch && <MiniDrawer />}
+        {isMatch && <TempDrawer />}
       </MuiThemeProvider>
     </div>
   );

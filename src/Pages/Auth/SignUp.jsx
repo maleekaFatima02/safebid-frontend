@@ -18,7 +18,7 @@ const colorTheme = createTheme({
   },
 });
 
-const SignUp = ({history}) => {
+const SignUp = ({ history }) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
@@ -33,12 +33,12 @@ const SignUp = ({history}) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const signup = (user) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
+  const signup = (user) =>
+    fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
       method: 'POST',
       headers,
       body: JSON.stringify(user),
-    })
-      .then((response) => response.json());
+    }).then((response) => response.json());
 
   const clickSubmit = (event) => {
     event.preventDefault();
@@ -59,16 +59,16 @@ const SignUp = ({history}) => {
   };
 
   const showError = () => (
-      <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-        {error}
-      </div>
-    );
+    <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+      {error}
+    </div>
+  );
 
   const showSuccess = () => (
-      <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
-        New Account Created. Please Login. Loading...
-      </div>
-    );
+    <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+      New Account Created. Please Login. Loading...
+    </div>
+  );
 
   return (
     <div>
@@ -124,8 +124,8 @@ const SignUp = ({history}) => {
                   </Grid>
                 </Grid>
                 <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#1e3d59' }} sx={{ mt: 3, mb: 2 }} onClick={clickSubmit}>
-                    Sign Up
-                  </Button>
+                  Sign Up
+                </Button>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
                     <Link to="/login" variant="body2" style={{ textDecoration: 'none', color: '#1e3d59' }}>
@@ -145,6 +145,5 @@ const SignUp = ({history}) => {
 SignUp.propTypes = {
   history: PropTypes.any.isRequired,
 };
-
 
 export default SignUp;

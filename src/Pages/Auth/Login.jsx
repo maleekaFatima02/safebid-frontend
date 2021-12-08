@@ -33,12 +33,12 @@ const Login = ({ history }) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const login = (user) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signIn`, {
+  const login = (user) =>
+    fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signIn`, {
       method: 'POST',
       headers,
       body: JSON.stringify(user),
-    })
-      .then((response) => response.json());
+    }).then((response) => response.json());
 
   const clickSubmit = (event) => {
     event.preventDefault();
@@ -55,10 +55,10 @@ const Login = ({ history }) => {
   };
 
   const showError = () => (
-      <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-        {error}
-      </div>
-    );
+    <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+      {error}
+    </div>
+  );
 
   const showLoading = () =>
     loading && (
@@ -76,7 +76,7 @@ const Login = ({ history }) => {
           paddingTop: colorTheme.spacing(5),
           paddingBottom: colorTheme.spacing(4),
         }}
-       />
+      />
       <Grid container style={{ backgroundColor: '#F5F5F5', borderRadius: '5%' }}>
         <CssBaseline />
 

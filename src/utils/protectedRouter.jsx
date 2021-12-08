@@ -24,5 +24,5 @@ export const RestrictedRouter = ({ component: Component, isLoggedIn, ...rest }) 
 
 RestrictedRouter.propTypes = {
   component: PropTypes.elementType,
-  location: PropTypes.any
+  location: PropTypes.any,
 };

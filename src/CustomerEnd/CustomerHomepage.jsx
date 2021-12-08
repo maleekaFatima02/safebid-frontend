@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import { makeStyles , createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
@@ -101,7 +101,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const displayProducts = () => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/allProducts`, {
+const displayProducts = () =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/allProducts`, {
     headers,
     method: 'GET',
   })
