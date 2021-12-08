@@ -2,16 +2,12 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Payment from '@material-ui/icons/Payment';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import TableChartIcon from '@mui/icons-material/TableChart';
 
 const colorTheme = createTheme({

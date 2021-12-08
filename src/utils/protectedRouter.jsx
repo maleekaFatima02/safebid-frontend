@@ -1,5 +1,7 @@
+/* eslint-disable */
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const RestrictedRouter = ({ component: Component, isLoggedIn, ...rest }) => (
   <Route
@@ -19,3 +21,8 @@ export const RestrictedRouter = ({ component: Component, isLoggedIn, ...rest }) 
     }
   />
 );
+
+RestrictedRouter.propTypes = {
+  component: PropTypes.elementType,
+  location: PropTypes.any
+};

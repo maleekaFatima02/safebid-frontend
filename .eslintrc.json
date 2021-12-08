@@ -1,4 +1,11 @@
 {
+    "parser": "babel-eslint",
+    "plugins": ["react"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "env": {
         "browser": true,
         "es2021": true,
@@ -10,16 +17,25 @@
         "prettier"
     ],
     "parserOptions": {
+        "requireConfigFile": false,
         "ecmaFeatures": {
             "jsx": true
         },
-        "ecmaVersion": 13,
+        "ecmaVersion": 2021,
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
     "rules": {
-        "import/prefer-default-export": 0
+        "semi": [2, "always"],
+        "import/prefer-default-export": 0,
+        "no-console": 1,
+        "no-shadow": 1,
+        "jsx-quotes": [2, "prefer-double"],
+        "camelcase": 2,
+        "no-underscore-dangle": 0,
+        "react/jsx-props-no-spreading": 0,
+        "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
+        "react/no-unstable-nested-components": 0,
+        "jsx-a11y/label-has-associated-control": 0,
+        "react/forbid-prop-types": 0
     }
 }

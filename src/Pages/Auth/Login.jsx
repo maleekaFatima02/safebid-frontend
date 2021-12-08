@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
 
@@ -32,26 +33,17 @@ const Login = ({ history }) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const login = (user) => {
-    return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signIn`, {
+  const login = (user) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signIn`, {
       method: 'POST',
       headers,
       body: JSON.stringify(user),
     })
-      .then((response) => {
-        return response.json();
-      })
-
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+      .then((response) => response.json());
 
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
     login({ email, password }).then((data) => {
-      console.log(data);
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
@@ -62,13 +54,11 @@ const Login = ({ history }) => {
     });
   };
 
-  const showError = () => {
-    return (
+  const showError = () => (
       <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
         {error}
       </div>
     );
-  };
 
   const showLoading = () =>
     loading && (
@@ -82,11 +72,11 @@ const Login = ({ history }) => {
       {JSON.stringify({ ...values })};{showError()};{showLoading()};
       <div
         style={{
-          //backgroundImage: `url(${"/auctionBG.png"})`,
+          // backgroundImage: `url(${"/auctionBG.png"})`,
           paddingTop: colorTheme.spacing(5),
           paddingBottom: colorTheme.spacing(4),
         }}
-      ></div>
+       />
       <Grid container style={{ backgroundColor: '#F5F5F5', borderRadius: '5%' }}>
         <CssBaseline />
 
@@ -102,7 +92,7 @@ const Login = ({ history }) => {
               justifyContent: 'center',
             }}
           >
-            <img src={logo} style={{ width: '55%', height: '65%' }} />
+            <img alt="app-logo" src={logo} style={{ width: '55%', height: '65%' }} />
             {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar> */}
@@ -126,13 +116,17 @@ const Login = ({ history }) => {
               <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#1e3d59' }} sx={{ mt: 3, mb: 2 }} onClick={clickSubmit}>
                 Login
               </Button>
-              <Grid container justifyContent="flex-end"></Grid>
+              <Grid container justifyContent="flex-end" />
             </Box>
           </Box>
         </MuiThemeProvider>
       </Grid>
     </Container>
   );
+};
+
+Login.propTypes = {
+  history: PropTypes.any.isRequired,
 };
 
 export default Login;

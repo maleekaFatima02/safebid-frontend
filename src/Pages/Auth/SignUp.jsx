@@ -6,8 +6,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
 
@@ -17,87 +18,57 @@ const colorTheme = createTheme({
   },
 });
 
-export default function SignUp() {
+const SignUp = ({history}) => {
   const [values, setValues] = React.useState({
     email: '',
     password: '',
     confirmPassword: '',
     error: '',
     success: false,
-    redirectToReferrer: false,
   });
 
-  const { email, password, confirmPassword, success, error, redirectToReferrer } = values;
+  const { email, password, confirmPassword, success, error } = values;
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
 
-  const signup = (user) => {
-    return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
+  const signup = (user) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
       method: 'POST',
-      headers: headers,
+      headers,
       body: JSON.stringify(user),
     })
-      .then((response) => {
-        console.log('bba');
-        return response.json();
-      })
-
-      .catch((err) => {
-        console.log('bb');
-        console.log(err);
-      });
-  };
+      .then((response) => response.json());
 
   const clickSubmit = (event) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      console.log('s1');
       setValues({ ...values, error: 'Password and confirm Password do not match', success: false });
-      console.log('s2');
     } else {
       setValues({ ...values, error: false });
       signup({ email, password }).then((data) => {
         if (data.error) {
           setValues({ ...values, error: data.error, success: false });
         } else {
-          setValues({
-            ...values,
-            email: '',
-            password: '',
-            confirmPassword: '',
-            error: '',
-            success: true,
-            redirectToReferrer: true,
-          });
+          localStorage.setItem('token', data.token);
+          history.push('/homepage');
         }
       });
     }
   };
 
-  const showError = () => {
-    return (
+  const showError = () => (
       <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
         {error}
       </div>
     );
-  };
 
-  const showSuccess = () => {
-    return (
+  const showSuccess = () => (
       <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
         New Account Created. Please Login. Loading...
       </div>
     );
-  };
-
-  const redirectUser = () => {
-    if (redirectToReferrer) {
-      return <Redirect to="/login" />;
-    }
-  };
 
   return (
     <div>
@@ -125,7 +96,7 @@ export default function SignUp() {
                 justifyContent: 'center',
               }}
             >
-              <img src={logo} style={{ width: '55%', height: '65%' }} />
+              <img src={logo} alt="my-logo" style={{ width: '55%', height: '65%' }} />
               <Typography component="h6" variant="h5">
                 Sign up
               </Typography>
@@ -152,14 +123,12 @@ export default function SignUp() {
                     />
                   </Grid>
                 </Grid>
-                <Link to="/login" style={{ textDecoration: 'none', color: '#1e3d59' }}>
-                  <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#1e3d59' }} sx={{ mt: 3, mb: 2 }} onClick={clickSubmit}>
+                <Button type="submit" fullWidth variant="contained" style={{ backgroundColor: '#1e3d59' }} sx={{ mt: 3, mb: 2 }} onClick={clickSubmit}>
                     Sign Up
                   </Button>
-                </Link>
                 <Grid container justifyContent="flex-end">
                   <Grid item>
-                    <Link to="/login" href="#" variant="body2" style={{ textDecoration: 'none', color: '#1e3d59' }}>
+                    <Link to="/login" variant="body2" style={{ textDecoration: 'none', color: '#1e3d59' }}>
                       Already have an account? Log in
                     </Link>
                   </Grid>
@@ -168,8 +137,14 @@ export default function SignUp() {
             </Box>
           </MuiThemeProvider>
         </Grid>
-        {redirectUser()};
       </Container>
     </div>
   );
-}
+};
+
+SignUp.propTypes = {
+  history: PropTypes.any.isRequired,
+};
+
+
+export default SignUp;

@@ -5,8 +5,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 
-function Copyright() {
-  return (
+const Copyright = () => (
     <Typography variant="body2" color="text.secondary">
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
@@ -16,10 +15,8 @@ function Copyright() {
       {'.'}
     </Typography>
   );
-}
 
-export default function StickyFooter() {
-  return (
+const StickyFooter = () => (
     <Box
       sx={{
         display: 'flex',
@@ -46,4 +43,5 @@ export default function StickyFooter() {
       </Box>
     </Box>
   );
-}
+
+export default StickyFooter;

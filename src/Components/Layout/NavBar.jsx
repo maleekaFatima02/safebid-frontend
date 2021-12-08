@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles , createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -13,7 +13,6 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,7 +20,7 @@ import Box from '@mui/material/Box';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { mainListItems, secondaryListItems } from './ListItems';
+import { mainListItems, secondaryListItems } from '../../CustomerEnd/ListItems';
 
 const theme = createTheme({
   palette: {
@@ -111,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = (props) => {
+const NavBar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -133,8 +132,7 @@ const NavBar = (props) => {
   const isMatch = useMediaQuery(themes.breakpoints.down('xs'));
   const isMd = useMediaQuery(themes.breakpoints.down('lg'));
 
-  const TempDrawer = () => {
-    return (
+  const TempDrawer = () => (
       <Drawer
         variant="temporary"
         open={open}
@@ -187,9 +185,7 @@ const NavBar = (props) => {
         </div>
       </Drawer>
     );
-  };
-  const MiniDrawer = () => {
-    return (
+  const MiniDrawer = () => (
       <Drawer
         variant="permanent"
         anchor="left"
@@ -197,7 +193,7 @@ const NavBar = (props) => {
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
-        open={true}
+        open
         onMouseEnter={handleDrawerOpen}
         onMouseLeave={handleDrawerClose}
       >
@@ -241,11 +237,9 @@ const NavBar = (props) => {
         </div>
       </Drawer>
     );
-  };
-  const PermDrawer = () => {
-    return (
-      <Drawer variant={'permanent'}>
-        <div className={classes.toolbarIcon}></div>
+  const PermDrawer = () => (
+      <Drawer variant="permanent">
+        <div className={classes.toolbarIcon} />
         <Divider />
         <div
           style={{
@@ -285,7 +279,6 @@ const NavBar = (props) => {
         </div>
       </Drawer>
     );
-  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -303,11 +296,9 @@ const NavBar = (props) => {
                 </Typography>
               </>
             ) : (
-              <>
-                <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} flexGrow="1" align="left">
+              <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title} flexGrow="1" align="left">
                   SafeBid
                 </Typography>
-              </>
             )}
             {isMatch ? (
               <>
@@ -336,7 +327,7 @@ const NavBar = (props) => {
                     </Typography>
                   </MenuItem>
                   <MenuItem>
-                    <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick={''} color="inherit">
+                    <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
                       <AccountCircle />
                     </IconButton>
                     <Typography variant="inherit" noWrap>
@@ -346,26 +337,24 @@ const NavBar = (props) => {
                 </Menu>
               </>
             ) : (
-              <>
-                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                   <IconButton style={{ margin: '0px' }} size="large" aria-label="show 3 new notifications" color="inherit">
                     <Badge badgeContent={17} color="error">
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
-                  <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick={''} color="inherit">
+                  <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
                     <AccountCircle />
                   </IconButton>
                 </Box>
-              </>
             )}
           </Toolbar>
         </AppBar>
 
-        {/*Drawer Started*/}
-        {!isMd && !isMatch ? <PermDrawer /> : <></>}
-        {isMd && !isMatch ? <MiniDrawer /> : <></>}
-        {isMatch ? <TempDrawer /> : <></>}
+        {/* Drawer Started */}
+        {(!isMd && !isMatch) && <PermDrawer />}
+        {(isMd && !isMatch ) && <MiniDrawer />}
+        {isMatch && <TempDrawer /> }
       </MuiThemeProvider>
     </div>
   );

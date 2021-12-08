@@ -8,18 +8,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
 import Countdown from 'react-countdown';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { makeStyles } from '@material-ui/core/styles';
-import NavBar from './NavBar';
+import { createTheme, MuiThemeProvider , makeStyles } from '@material-ui/core/styles';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import MuiAccordion from '@mui/material/Accordion';
 import MuiAccordionSummary from '@mui/material/AccordionSummary';
 import MuiAccordionDetails from '@mui/material/AccordionDetails';
-import TextField from '@mui/material/TextField';
 import { InputBase } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
@@ -29,22 +25,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
+import { useParams } from 'react-router-dom';
+import NavBar from '../Components/Layout/NavBar';
 import StickyFooter from './StickyFooter';
-import { Link, useParams } from 'react-router-dom';
 import { headers } from '../utils';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const theme = createTheme({
   palette: {
@@ -180,7 +164,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-//confirmation prompt
+// confirmation prompt
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -216,53 +200,41 @@ const BootstrapDialogTitle = (props) => {
 };
 
 BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-const displayProduct = (productId) => {
-  return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/viewProduct/${productId}`, {
-    headers: headers,
+const displayProduct = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/viewProduct/${productId}`, {
+    headers,
     method: 'GET',
   })
-    .then((response) => {
-      return response.json();
-    })
+    .then((response) => response.json())
 
     .catch((err) => {
       console.log(err);
     });
-};
 
-const displayTotalBids = (productId) => {
-  return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/bidCount/${productId}`, {
-    headers: headers,
+const displayTotalBids = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/bidCount/${productId}`, {
+    headers,
     method: 'GET',
   })
-    .then((response) => {
-      return response.json();
-    })
+    .then((response) => response.json())
 
     .catch((err) => {
       console.log(err);
     });
-};
 
-const displayCurrentBid = (productId) => {
-  return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/currentBid/${productId}`, {
-    headers: headers,
+const displayCurrentBid = (productId) => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/currentBid/${productId}`, {
+    headers,
     method: 'GET',
   })
-    .then((response) => {
-      return response.json();
-    })
+    .then((response) => response.json())
 
     .catch((err) => {
       console.log(err);
     });
-};
 
-export default function ImgMediaCard() {
+const ImgMediaCard = () => {
   const [expanded, setExpanded] = React.useState('panel1');
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -329,6 +301,7 @@ export default function ImgMediaCard() {
       <CssBaseline />
       <MuiThemeProvider theme={theme}>
         <NavBar />
+        {error}
         <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
@@ -369,7 +342,7 @@ export default function ImgMediaCard() {
                       display: 'flex',
                       flex: '1',
                       justifyContent: 'center',
-                      //border: "1px solid red",
+                      // border: "1px solid red",
                       flexDirection: 'column',
 
                       margin: '20px',
@@ -566,4 +539,6 @@ export default function ImgMediaCard() {
       </MuiThemeProvider>
     </div>
   );
-}
+};
+
+export default ImgMediaCard;

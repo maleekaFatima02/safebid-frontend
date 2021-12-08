@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -7,38 +6,16 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+import { makeStyles , createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import SearchBar from './SearchBar';
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { bottomNavigationActionClasses } from '@mui/material';
-import NavBar from './NavBar';
-import clsx from 'clsx';
-import StickyFooter from './StickyFooter';
-import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import Countdown from 'react-countdown';
-import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import StickyFooter from './StickyFooter';
+import SearchBar from './SearchBar';
+import NavBar from '../Components/Layout/NavBar';
 import { headers } from '../utils';
-//import {displayProducts} from './CustomerAPI'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const cards = [];
 
 const theme = createTheme({
   palette: {
@@ -124,21 +101,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const displayProducts = () => {
-  return fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/allProducts`, {
+const displayProducts = () => fetch(`${process.env.REACT_APP_SAFE_BID_URI}/product/allProducts`, {
     headers,
     method: 'GET',
   })
-    .then((response) => {
-      return response.json();
-    })
+    .then((response) => response.json())
 
     .catch((err) => {
       console.log(err);
     });
-};
 
-export default function CustomerHomepage() {
+const CustomerHomepage = () => {
   const [Products, setProducts] = useState([]);
   const [error, setError] = useState(false);
 
@@ -158,9 +131,9 @@ export default function CustomerHomepage() {
   useEffect(() => {
     loadProducts();
   }, []);
-  const themes = useTheme();
+
   const classes = useStyles();
-  const isMatch = useMediaQuery(themes.breakpoints.down('xs'));
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -168,7 +141,7 @@ export default function CustomerHomepage() {
         <NavBar />
         <main style={{ display: 'flex', flexDirection: 'column' }} className={classes.content}>
           <div className={classes.appBarSpacer} />
-
+          {error}
           <Container className={classes.container}>
             <Grid container justifyContent="left">
               <Grid
@@ -237,4 +210,6 @@ export default function CustomerHomepage() {
       </MuiThemeProvider>
     </div>
   );
-}
+};
+
+export default CustomerHomepage;

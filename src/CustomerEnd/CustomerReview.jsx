@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import NavBar from './NavBar';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider , makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Rating from '@mui/material/Rating';
@@ -14,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { styled } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
-import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
+import NavBar from '../Components/Layout/NavBar';
 
 const theme = createTheme({
   palette: {
@@ -107,7 +105,7 @@ const Input = styled('input')({
   display: 'none',
 });
 
-export default function CustomerMyBids() {
+const CustomerMyBids = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(1);
 
@@ -136,7 +134,7 @@ export default function CustomerMyBids() {
                 </Grid>
 
                 <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
-                  <img src="https://picsum.photos/200/300" loading="lazy" />
+                  <img alt="picsum" src="https://picsum.photos/200/300" loading="lazy" />
                 </Grid>
                 <Grid item style={{ display: 'flex', justifyContent: 'center' }}>
                   <Typography style={{ marginTop: 10, paddingBottom: 14, marginBottom: 10 }} component="h6" variant="subtitle1">
@@ -264,4 +262,6 @@ export default function CustomerMyBids() {
       </MuiThemeProvider>
     </div>
   );
-}
+};
+
+export default CustomerMyBids;

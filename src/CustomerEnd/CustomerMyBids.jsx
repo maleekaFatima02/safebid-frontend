@@ -1,13 +1,13 @@
-import SearchBar from './SearchBar';
-import Table from './Table';
+import React from 'react';
 import Grid from '@mui/material/Grid';
-import NavBar from './NavBar';
 import CssBaseline from '@mui/material/CssBaseline';
-import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme, MuiThemeProvider , makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import NavBar from '../Components/Layout/NavBar';
+import Table from './Table';
+import SearchBar from './SearchBar';
 
 const theme = createTheme({
   palette: {
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomerMyBids() {
+const CustomerMyBids = () => {
   const classes = useStyles();
 
   return (
@@ -144,4 +144,6 @@ export default function CustomerMyBids() {
       </MuiThemeProvider>
     </div>
   );
-}
+};
+
+export default CustomerMyBids;

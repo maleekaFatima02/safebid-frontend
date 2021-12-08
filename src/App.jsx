@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Redirect } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Redirect , Route, Switch } from 'react-router-dom';
 import ViewProductDetails from './CustomerEnd/ViewProductDetails';
 import CustomerMyBids from './CustomerEnd/CustomerMyBids';
 import CustomerHomepage from './CustomerEnd/CustomerHomepage';
@@ -9,19 +9,16 @@ import SignUp from './Pages/Auth/SignUp';
 import Login from './Pages/Auth/Login';
 import { RestrictedRouter } from './utils/protectedRouter';
 
-const RestrictedRoutes = () => (
-  <Switch>
+const RestrictedRoutes = () => <Switch>
     <Route exact path="/homepage" component={CustomerHomepage} />
     <Route exact path="/ProductDetails/:productId" component={ViewProductDetails} />
     <Route exact path="/MyBids" component={CustomerMyBids} />
     <Route exact path="/MyPurchases" component={CustomerPurchases} />
     <Route exact path="/CustomerReview" component={CustomerReview} />
     <Redirect from="*" to="/homepage" />
-  </Switch>
-);
+  </Switch>;
 
-const App = () => {
-  return (
+const App = () => (
     <Router>
       <Switch>
         <Route path="/signup" exact component={SignUp} />
@@ -32,5 +29,4 @@ const App = () => {
       </Switch>
     </Router>
   );
-};
 export default App;
