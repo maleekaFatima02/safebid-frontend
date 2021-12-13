@@ -119,7 +119,7 @@ const CustomerHomepage = () => {
       }
     });
   };
-
+  
   useEffect(() => {
     loadProducts();
   }, []);
