@@ -9,10 +9,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
-import { useHistory } from 'react-router-dom';
 
 const colorTheme = createTheme({
   palette: {
@@ -141,10 +140,6 @@ const Login = () => {
       </Grid>
     </Container>
   );
-};
-
-Login.propTypes = {
-  history: PropTypes.any.isRequired,
 };
 
 export default Login;

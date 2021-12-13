@@ -85,7 +85,7 @@ const SignUp = ({ history }) => {
 
   return (
     <div>
-      {JSON.stringify({ ...values })}; {showError()};{showSuccess()}
+{showError()};{showSuccess()}
       <Container
         component="main"
         maxWidth="xs"
