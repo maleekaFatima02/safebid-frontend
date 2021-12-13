@@ -20,7 +20,7 @@ import Box from '@mui/material/Box';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { mainListItems, secondaryListItems } from '../../CustomerEnd/ListItems';
+import { mainListItems } from '../../CustomerEnd/ListItems';
 
 const theme = createTheme({
   palette: {
@@ -128,6 +128,11 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
+  const logOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   const themes = useTheme();
   const isMatch = useMediaQuery(themes.breakpoints.down('xs'));
   const isMd = useMediaQuery(themes.breakpoints.down('lg'));
@@ -159,29 +164,7 @@ const NavBar = () => {
       >
         {' '}
         <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-        {/* <List>
-            {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
-        <Divider />
-        {/* <List>
-            {["My Bids", "My Purchases"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
+
       </div>
     </Drawer>
   );
@@ -210,30 +193,6 @@ const NavBar = () => {
         }}
       >
         <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-
-        {/* <List>
-            {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
-        {/* <Divider />
-          <List>
-            {["My Bids", "My Purchases"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
       </div>
     </Drawer>
   );
@@ -253,29 +212,7 @@ const NavBar = () => {
       >
         {' '}
         <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
-        {/* <List>
-            {["Dashboard", "Live Auctions", "Fund Raising Auctions"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
-        {/* <Divider />
-          <List>
-            {["My Bids", "My Purchases"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List> */}
+
       </div>
     </Drawer>
   );
@@ -327,7 +264,7 @@ const NavBar = () => {
                     </Typography>
                   </MenuItem>
                   <MenuItem>
-                    <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
+                    <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick={logOut} color="inherit">
                       <AccountCircle />
                     </IconButton>
                     <Typography variant="inherit" noWrap>
@@ -343,7 +280,7 @@ const NavBar = () => {
                     <NotificationsIcon />
                   </Badge>
                 </IconButton>
-                <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick="" color="inherit">
+                <IconButton size="large" edge="end" aria-label="account of current user" aria-haspopup="true" onClick={logOut} color="inherit">
                   <AccountCircle />
                 </IconButton>
               </Box>

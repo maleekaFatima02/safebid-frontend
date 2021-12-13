@@ -11,6 +11,12 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
+import { useHistory } from 'react-router-dom';
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const colorTheme = createTheme({
   palette: {
@@ -26,21 +32,16 @@ const SignUp = ({ history }) => {
     error: '',
     firstName: '',
     lastName: '',
+    role: '',
     success: false,
   });
 
-  const { email, password, confirmPassword, success, error, firstName, lastName } = values;
+  const { email, password, confirmPassword, success, error, firstName, lastName, role } = values;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setValues({ ...values, error: false, [name]: value });
   };
-
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      history.push('/homepage');
-    }
-  }, []);
 
   const signup = (user) =>
     fetch(`${process.env.REACT_APP_SAFE_BID_URI}/auth/signUp`, {
@@ -56,14 +57,15 @@ const SignUp = ({ history }) => {
       setValues({ ...values, error: 'Password and confirm Password do not match', success: false });
     } else {
       setValues({ ...values, error: false });
-      signup({ email, password, firstName, lastName }).then((data) => {
+      signup({ email, password, firstName, lastName, role }).then((data) => {
         if (data.error) {
           setValues({ ...values, error: data.error, success: false });
         } else {
-          localStorage.setItem('token', data.token);
+          localStorage.setItem('token', JSON.stringify(data));
           setTimeout(() => {
-            window.location.reload();
+            window.location.reload();  
           }, 1000);
+          history.push('/login');
         }
       });
     }
@@ -114,6 +116,38 @@ const SignUp = ({ history }) => {
 
               <Box component="form" noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
+                <Grid
+                    item
+                    xs={12}
+                    style={{ display: "flex", justifyContent: "center" }}
+                  >
+                    <FormControl
+                      component="fieldset"
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <RadioGroup
+                        row
+                        aria-label="user-type"
+                        name="role"
+                        value={role}
+                        onChange={(e) => handleChange(e)}
+                      >
+                        <FormControlLabel
+                          value="seller"
+                          control={<Radio />}
+                          label="Seller"
+                        />
+                        <FormControlLabel
+                          value="customer"
+                          control={<Radio />}
+                          label="Customer"
+                        />
+                      </RadioGroup>
+                    </FormControl>
+                  </Grid>
                   <Grid item xs={12}>
                     <TextField required fullWidth name="firstName" label="First Name" type="text" id="firstName" autoComplete="new-password" onChange={(e) => handleChange(e)} value={firstName} />
                   </Grid>

@@ -104,18 +104,18 @@ const displayProducts = () =>
     });
 
 const CustomerHomepage = () => {
-  const [Products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [error, setError] = useState(false);
 
+  var token = '';
+
   const loadProducts = () => {
-    console.log('bb');
     displayProducts().then((data) => {
       if (data.error) {
-        console.log('hello');
         setError(data.error);
       } else {
-        console.log('hello 2');
         setProducts(data);
+        token = localStorage.getItem('token');
       }
     });
   };
@@ -142,11 +142,11 @@ const CustomerHomepage = () => {
         <Grid item xs={12}>
           {error}
           <Typography style={{ paddingBottom: 14, marginBottom: 10 }} component="h5" variant="h5">
-            Trending Items
+            Trending Items 
           </Typography>{' '}
         </Grid>
         <Grid container spacing={3} maxWidth="lg">
-          {Products.map((product) => (
+          { products.map((product) => (
             <Grid item xs={12} sm={6} md={3}>
               <Link to={`/ProductDetails/${product._id}`} style={{ textDecoration: 'none', color: '#000' }}>
                 <Card sx={{ maxWidth: 250, height: 'auto' }} style={{ backgroundColor: '#f5f0e1' }}>
@@ -159,7 +159,7 @@ const CustomerHomepage = () => {
                     <Typography variant="body2">{product.openingBid}</Typography>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <Typography variant="h6" color="text.secondary">
-                        <Countdown date={Date.now() + 1900000} />
+                        <Countdown date={new Date(product.biddingTime)} autoStart = 'true' />
                       </Typography>
                       <CardActions
                         style={{

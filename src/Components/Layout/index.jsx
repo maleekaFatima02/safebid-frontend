@@ -9,6 +9,9 @@ import CustomerHomepage from '../../Pages/Product';
 import CustomerMyBids from '../../Pages/Bid/CustomerMyBids';
 import CustomerReview from '../../Pages/Review/CustomerReview';
 import CustomerPurchases from '../../Pages/Purchase/CustomerPurchases';
+import AddProduct from "../../SellerEnd/AddProduct";
+import SellerViewProduct from "../../SellerEnd/SellerViewProduct";
+import SellerInventory from "../../SellerEnd/SellerInventory";
 
 const theme = createTheme({
   palette: {
@@ -111,6 +114,9 @@ const Layout = () => {
             <Route exact path="/MyBids" component={CustomerMyBids} />
             <Route exact path="/MyPurchases" component={CustomerPurchases} />
             <Route exact path="/CustomerReview" component={CustomerReview} />
+            <Route path="/AddProduct" component={AddProduct} />
+      <Route path ="/ViewMyProduct" component={SellerViewProduct} />
+      <Route path ="/ViewInventory"  component={SellerInventory} />
             <Redirect from="*" to="/homepage" />
           </Switch>
           <StickyFooter />

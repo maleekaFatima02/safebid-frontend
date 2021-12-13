@@ -4,11 +4,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
-import TableChartIcon from '@mui/icons-material/TableChart';
+import {routesList} from '../utils/config'
 
 const colorTheme = createTheme({
   palette: {
@@ -20,60 +16,24 @@ const colorTheme = createTheme({
 export const mainListItems = (
   <MuiThemeProvider theme={colorTheme} style={{ border: '1px solid black' }}>
     <div>
-      <ListItem button>
-        <Link to="/Homepage" style={{ textDecoration: 'none', color: '#000' }}>
+
+      {routesList.map((item) => { 
+        if (item.role.includes(localStorage.getItem('role'))){
+          return (<ListItem button>
+        <Link to={item.link} style={{ textDecoration: 'none', color: '#000' }}>
           <div style={{ display: 'flex' }}>
             <ListItemIcon>
-              <DashboardIcon sx={{ color: '#1e3d59' }} />
+              {item.icon}
             </ListItemIcon>
-
-            <ListItemText primary="Home Page" />
+            <ListItemText primary={item.itemName} />
           </div>
         </Link>
-      </ListItem>
-
-      <ListItem button>
-        <ListItemIcon>
-          <LiveTvIcon sx={{ color: '#1e3d59' }} />
-        </ListItemIcon>
-
-        <ListItemText primary="Live Auction Event" />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <SupervisedUserCircleIcon sx={{ color: '#1e3d59' }} />
-        </ListItemIcon>
-
-        <ListItemText primary="FundRaising Auctions" />
-      </ListItem>
+      </ListItem>);
+        }
+        return null;
+      })}
     </div>
   </MuiThemeProvider>
 );
 
-export const secondaryListItems = (
-  <MuiThemeProvider theme={colorTheme} style={{ border: '1px solid black' }}>
-    <div>
-      <ListItem button>
-        <Link to="/MyBids" style={{ textDecoration: 'none', color: '#000' }}>
-          <div style={{ display: 'flex' }}>
-            <ListItemIcon>
-              <TableChartIcon sx={{ color: '#1e3d59' }} />
-            </ListItemIcon>
-            <ListItemText primary="My Bids" />
-          </div>
-        </Link>
-      </ListItem>
 
-      <ListItem button>
-        <Link to="/MyPurchases" style={{ textDecoration: 'none', color: '#000' }}>
-          <div style={{ display: 'flex' }}>
-            <ListItemIcon>
-              <ShoppingCartIcon sx={{ color: '#1e3d59' }} />
-            </ListItemIcon>
-            <ListItemText primary="My Purchases" />
-          </div>
-        </Link>
-      </ListItem>
-    </div>
-  </MuiThemeProvider>
-);

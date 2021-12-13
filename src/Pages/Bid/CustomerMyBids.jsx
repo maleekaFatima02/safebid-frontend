@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@mui/material/Container';
@@ -6,6 +6,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Table from '../../CustomerEnd/Table';
 import SearchBar from '../../Components/SearchBar';
+import { headers } from '../../utils';
 
 const drawerWidth = 240;
 
@@ -88,8 +89,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const displayBids = () =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/bid/allBids/61a38df8de7cb13650a90d63`, {
+    headers,
+    method: 'GET',
+  })
+    .then((response) => response.json())
+
+    .catch((err) => {
+      console.log(err);
+    });
+
+  
+
 const CustomerMyBids = () => {
   const classes = useStyles();
+  const [bids, setBids] = useState([]);
+
+  const loadBids = () => {
+    displayBids().then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        console.log("bids received correctly")
+        setBids(data);
+      }
+    });
+  };
+
+  useEffect(() => {
+    loadBids();
+  }, []);
 
   return (
     <Container maxWidth="md" className={classes.container}>
@@ -121,7 +151,7 @@ const CustomerMyBids = () => {
                 My Bids
               </Typography>{' '}
             </Grid>
-            <Table />
+            <Table entries = {bids}/>
           </Paper>
         </Grid>
       </Grid>

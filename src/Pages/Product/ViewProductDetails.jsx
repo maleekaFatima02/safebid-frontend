@@ -161,8 +161,6 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: '1px solid rgba(0, 0, 0, .125)',
 }));
 
-// confirmation prompt
-
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
     padding: theme.spacing(2),
@@ -234,35 +232,73 @@ const displayCurrentBid = (productId) =>
       console.log(err);
     });
 
-const ImgMediaCard = () => {
-  const [expanded, setExpanded] = React.useState('panel1');
+const createBid = (bid) =>
+  fetch(`${process.env.REACT_APP_SAFE_BID_URI}/bid/create`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(bid),
+    }).then((response) => response.json());
 
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+const ViewProduct = () => {
 
   const classes = useStyles();
 
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const [expanded, setExpanded] = useState('panel1');
+  const [bidConfirmationPrompt, setBidConfirmationPrompt] = useState(false);
   const [product, setProduct] = useState({});
   const [totalBids, setTotalBids] = useState(0);
   const [currentBid, setCurrentBid] = useState(0);
-  const [error, setError] = useState(false);
+  const [newBid, setNewBid] = useState(0);
+  const [bidConfirmationMessage, setbidConfirmationMessage] = useState('');
+  const [isValidBid, setIsValidBid] = useState(false);
 
   const { productId } = useParams();
+  
+  const handleSidePanel = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  const openBidConfirmationPrompt = () => {
+    setBidConfirmationPrompt(true);
+  };
+
+  const closeBidConfirmationPrompt = () => {
+    setBidConfirmationPrompt(false);
+  };
+
+  const takeInput = (event) => {
+    setNewBid(event.target.value);
+  };
+
+  const bidConfirmation = () => {
+    if (newBid <= currentBid){
+      setbidConfirmationMessage('Place a Bid higher than the current Bid!');
+      openBidConfirmationPrompt();
+    }
+    else{
+      setbidConfirmationMessage('Are you sure you want to place bid on this product?');
+      setIsValidBid(true);
+      openBidConfirmationPrompt();
+    }
+  };
+
+  const placeBid = () => {
+    createBid({product: productId, bidder:'61a38df8de7cb13650a90d63', value: newBid}).then((data) => {
+      if (data.error) {
+        console.log({error});
+      } else {
+        console.log("Bid placed successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    });
+  };
 
   const loadProduct = (productId) => {
     displayProduct(productId).then((data) => {
       if (data.error) {
-        setError(data.error);
+        console.log ("product not rendered!" , data.error);
       } else {
         setProduct(data);
       }
@@ -298,7 +334,7 @@ const ImgMediaCard = () => {
 
   return (
     <Container maxWidth="lg" className={classes.container}>
-      {error}
+     
       <Grid container justifyContent="center" spacing={3}>
         {/* <Paper className={classes.paper} elevation={0}> */}
         <Grid
@@ -356,7 +392,7 @@ const ImgMediaCard = () => {
                     color: 'red',
                   }}
                 >
-                  <Countdown date={Date.now() + 1900000} />
+                  <Countdown date={new Date(product.biddingTime)} autoStart = 'true'/>
                 </Typography>
               </p>
 
@@ -399,7 +435,7 @@ const ImgMediaCard = () => {
               </Typography>
               <p>
                 <Typography variant="h6" style={{ paddingBottom: '10px', color: 'grey' }}>
-                  {totalBids}
+                  {totalBids} 
                 </Typography>
               </p>
             </CardContent>
@@ -443,13 +479,16 @@ const ImgMediaCard = () => {
             >
               <InputBase
                 fullWidth
-                placeholder="Enter Your Bid&nbsp;($)"
+                label="Enter Your Bid&nbsp;($)"
                 style={{
                   border: '1px solid rgba(34, 49, 63, 1)',
                   color: 'rgba(34, 49, 63, 1)',
                   padding: theme.spacing(2),
                 }}
                 size="small"
+                name = "bidInput"
+                value = {newBid}
+                onChange = {(event) => {takeInput(event)}}
               />
             </Grid>
             {/* <Button
@@ -467,31 +506,34 @@ const ImgMediaCard = () => {
                   color: '#fff',
                   margin: '15px',
                 }}
-                onClick={handleClickOpen}
+                onClick={bidConfirmation}
               >
                 Place Bid
               </Button>
             </Grid>
-
-            <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-              <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+            
+            
+            <BootstrapDialog onClose={closeBidConfirmationPrompt} aria-labelledby="customized-dialog-title" open={bidConfirmationPrompt}>
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={closeBidConfirmationPrompt}>
                 Confirm Bidding
               </BootstrapDialogTitle>
               <DialogContent dividers>
-                <Typography gutterBottom>Are you sure you want to place bid on this product?</Typography>
+                <Typography gutterBottom>{bidConfirmationMessage}</Typography>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Confirm Bid</Button>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={() => { isValidBid ? placeBid() : closeBidConfirmationPrompt();}}>OK</Button>
+                <Button onClick={closeBidConfirmationPrompt}>Cancel</Button>
               </DialogActions>
             </BootstrapDialog>
+
+
           </Grid>
         </Grid>
         {/* terms & cond */}
         <Grid item lg={4} md={4}>
           <Paper className={classes.paperCard}>
             <div>
-              <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+              <Accordion expanded={expanded === 'panel1'} onChange={handleSidePanel('panel1')}>
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                   <Typography>Product Description</Typography>
                 </AccordionSummary>
@@ -500,7 +542,7 @@ const ImgMediaCard = () => {
                 </AccordionDetails>
               </Accordion>
 
-              <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+              <Accordion expanded={expanded === 'panel1'} onChange={handleSidePanel('panel1')}>
                 <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
                   <Typography>Terms and Conditions</Typography>
                 </AccordionSummary>
@@ -511,7 +553,7 @@ const ImgMediaCard = () => {
                   </Typography>
                 </AccordionDetails>
               </Accordion>
-              <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+              <Accordion expanded={expanded === 'panel2'} onChange={handleSidePanel('panel2')}>
                 <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
                   <Typography>Shipping Policy</Typography>
                 </AccordionSummary>
@@ -531,4 +573,4 @@ const ImgMediaCard = () => {
   );
 };
 
-export default ImgMediaCard;
+export default ViewProduct;

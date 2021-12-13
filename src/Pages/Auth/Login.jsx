@@ -12,7 +12,7 @@ import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import logo from '../../logo.png';
 import { headers } from '../../utils';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const colorTheme = createTheme({
   palette: {
@@ -31,12 +31,6 @@ const Login = () => {
 
   const { email, password, loading, error } = values;
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      history.push('/homepage');
-    }
-  }, []);
-
   const handleChange = (name) => (event) => {
     setValues({ ...values, error: false, [name]: event.target.value });
   };
@@ -48,6 +42,19 @@ const Login = () => {
       body: JSON.stringify(user),
     }).then((response) => response.json());
 
+  const authenticate = (data, next) => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('role', data.user.role);
+      next();
+    }
+  };
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      history.push('/homepage');
+    }
+  }, []);
+
   const clickSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: false, loading: true });
@@ -55,11 +62,12 @@ const Login = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        localStorage.setItem('token', data.token);
-        setValues({ ...values });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        authenticate(data, () => {
+          setValues({ ...values });
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        });
       }
     });
   };
@@ -79,7 +87,7 @@ const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      {JSON.stringify({ ...values })};{showError()};{showLoading()};
+{showError()};{showLoading()};
       <div
         style={{
           // backgroundImage: `url(${"/auctionBG.png"})`,
